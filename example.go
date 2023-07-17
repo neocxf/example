@@ -15,8 +15,9 @@ func init() {
 	flag.Parse()
 }
 
-//Run 程序入口
+// Run 程序入口
 func Run() error {
+	log.SetLevel(log.DebugLevel)
 	log.Info("start wechat sdk example project")
 
 	cfg := config.GetConfig()
@@ -39,6 +40,8 @@ func Run() error {
 	r.GET("/api/v1/oa/basic/clear_quota", exampleOffAccount.ClearQuota)
 
 	//获取
+	r.GET("/api/v1/oa/menu", exampleOffAccount.GetMenus)
+	r.POST("/api/v1/oa/menu", exampleOffAccount.NewMenu)
 
 	//显示首页
 	r.GET("/", Index)
@@ -46,25 +49,28 @@ func Run() error {
 	return r.Run(cfg.Listen)
 }
 
-//Index 显示首页
+// Index 显示首页
 func Index(c *gin.Context) {
 	c.JSON(200, "index")
 }
 
-//InitWechat 获取wechat实例
-//在这里已经设置了全局cache，则在具体获取公众号/小程序等操作实例之后无需再设置，设置即覆盖
+// InitWechat 获取wechat实例
+// 在这里已经设置了全局cache，则在具体获取公众号/小程序等操作实例之后无需再设置，设置即覆盖
 func InitWechat() *wechat.Wechat {
-	cfg := config.GetConfig()
 	wc := wechat.NewWechat()
-	redisOpts := &cache.RedisOpts{
-		Host:        cfg.Redis.Host,
-		Password:    cfg.Redis.Password,
-		Database:    cfg.Redis.Database,
-		MaxActive:   cfg.Redis.MaxActive,
-		MaxIdle:     cfg.Redis.MaxIdle,
-		IdleTimeout: cfg.Redis.IdleTimeout,
-	}
-	redisCache := cache.NewRedis(redisOpts)
-	wc.SetCache(redisCache)
+	// cfg := config.GetConfig()
+	// redisOpts := &cache.RedisOpts{
+	// 	Host:        cfg.Redis.Host,
+	// 	Password:    cfg.Redis.Password,
+	// 	Database:    cfg.Redis.Database,
+	// 	MaxActive:   cfg.Redis.MaxActive,
+	// 	MaxIdle:     cfg.Redis.MaxIdle,
+	// 	IdleTimeout: cfg.Redis.IdleTimeout,
+	// }
+	// redisCache := cache.NewRedis(redisOpts)
+	// wc.SetCache(redisCache)
+
+	memory := cache.NewMemory()
+	wc.SetCache(memory)
 	return wc
 }

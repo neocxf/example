@@ -10,13 +10,13 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-//ExampleOfficialAccount 公众号操作样例
+// ExampleOfficialAccount 公众号操作样例
 type ExampleOfficialAccount struct {
 	wc              *wechat.Wechat
 	officialAccount *officialaccount.OfficialAccount
 }
 
-//ExampleOfficialAccount new
+// ExampleOfficialAccount new
 func NewExampleOfficialAccount(wc *wechat.Wechat) *ExampleOfficialAccount {
 	//init config
 	globalCfg := config.GetConfig()
@@ -34,7 +34,7 @@ func NewExampleOfficialAccount(wc *wechat.Wechat) *ExampleOfficialAccount {
 	}
 }
 
-//Serve 处理消息
+// Serve 处理消息
 func (ex *ExampleOfficialAccount) Serve(c *gin.Context) {
 	// 传入request和responseWriter
 	server := ex.officialAccount.GetServer(c.Request, c.Writer)
@@ -69,13 +69,13 @@ func (ex *ExampleOfficialAccount) Serve(c *gin.Context) {
 	//处理消息接收以及回复
 	err := server.Serve()
 	if err != nil {
-		log.Error("Serve Error, err=%+v", err)
+		log.Errorf("Serve Error, err=%+v", err)
 		return
 	}
 	//发送回复的消息
 	err = server.Send()
 	if err != nil {
-		log.Error("Send Error, err=%+v", err)
+		log.Errorf("Send Error, err=%+v", err)
 		return
 	}
 }
