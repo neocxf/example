@@ -9,4 +9,3 @@ tmp/
 *.out
 
 # Environment variables
-.env
