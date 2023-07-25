@@ -11,6 +11,9 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
+    "types": [
+      "element-plus/global"
+    ],
     "lib": [
       "esnext",
       "dom"
