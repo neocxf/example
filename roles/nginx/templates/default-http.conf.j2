@@ -2,28 +2,35 @@
 # Default server config without SSL certificate:
 #
 
-{% if nginx_redirect_to_non_www %}
+{% if nginx_redirect_to_non_www == 'yes' %}
 # WWW redirects
 server {
   listen      80 default_server;
   listen      [::]:80 default_server;
-  server_name www.{{ project_domain }};
+  server_name _;
   return 301 https://{{ project_domain }}$request_uri;
 }
 {% endif %}
 
 # Main server
 server {
-  listen      80;
-  listen      [::]:80;
-{% if nginx_redirect_to_non_www %}
+  listen      80 default_server;
+  listen      [::]:80 default_server;
+{% if nginx_redirect_to_non_www == 'yes' %}
   server_name {{ project_domain }};
 {% else %}
-  server_name {{ project_domain }} www.{{ project_domain }};
+  server_name _;
 {% endif %}
+
+  root /var/www/html;
+  index index.html;
   location / {
+    try_files $uri $uri/ $uri.html =404;
+  }
+
+  location /api {
     resolver                            127.0.0.11;
-    proxy_pass                          http://oa-backend:{{ backend_port }}/;
+    proxy_pass                          http://oa-backend:{{ backend_port }};
     proxy_set_header Host               $host;
     proxy_set_header X-Real-IP          $remote_addr;
     proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;

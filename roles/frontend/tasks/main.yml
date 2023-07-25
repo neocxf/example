@@ -1,0 +1,34 @@
+# Ansible role for deploy a frontend of the Create Go App project.
+# Author: Vic Shóstak <koddr.me@gmail.com> (https://github.com/koddr)
+# For more information, please visit https://github.com/create-go-app/cli
+
+---
+#
+# Delete frontend files.
+#
+- name: Delete previous frontend files
+  file:
+    state: absent
+    path: "{{ server_dir }}/frontend"
+
+
+#
+# Create folder for Nginx.
+#
+- name: Ensures Frontend dir exists
+  file:
+    state: directory
+    path: "{{ server_dir }}/frontend"
+    owner: "{{ server_user }}"
+    group: "{{ server_group }}"
+
+
+#
+# Copy `./frontend` folder to the remote server.
+#
+- name: Copy a new frontend files
+  synchronize:
+    src: ./frontend/dist
+    dest: "{{ server_dir }}/frontend"
+    rsync_opts:
+      - "--exclude=.git,.github,build,*.md"

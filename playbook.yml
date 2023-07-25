@@ -14,8 +14,9 @@
   #
   roles:
     - { role: docker, tags: [docker] }
+    - { role: frontend, tags: [frontend] }
     - { role: backend, tags: [backend] }
     - { role: redis, tags: [redis] }
     - { role: postgres, tags: [postgres] }
-    # - { role: nginx, tags: [nginx] }
-    - { role: traefik, tags: [traefik] }
+    - { role: nginx, tags: [nginx] }
+    # - { role: traefik, tags: [traefik] }

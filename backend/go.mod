@@ -3,6 +3,7 @@ module github.com/neocxf/oa
 go 1.19
 
 require (
+	github.com/caarlos0/env/v7 v7.1.0
 	github.com/go-playground/validator/v10 v10.14.1
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/gofiber/contrib/jwt v1.0.4
@@ -22,8 +23,6 @@ require (
 	golang.org/x/crypto v0.11.0
 	golang.org/x/sys v0.10.0 // indirect
 )
-
-require github.com/caarlos0/env/v7 v7.1.0
 
 require (
 	github.com/KyleBanks/depth v1.2.1 // indirect
