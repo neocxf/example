@@ -1,0 +1,6 @@
+[submodule "RuoYi-Vue"]
+	path = RuoYi-Vue
+	url = https://gitee.com/y_project/RuoYi-Vue.git
+[submodule "hplus"]
+	path = hplus
+	url = https://gitee.com/hplus_admin/hplus.git
