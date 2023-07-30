@@ -47,7 +47,12 @@ const toast = () => {
 
   <div class="my-2">
     <el-input class="m-2" v-model="input" style="width: 200px" />
-    <el-date-picker class="m-2" v-model="curDate" type="date" placeholder="Pick a day"></el-date-picker>
+    <el-date-picker
+      class="m-2"
+      v-model="curDate"
+      type="date"
+      placeholder="Pick a day"
+    ></el-date-picker>
   </div>
 
   <p>For example, we can custom primary color to 'green'.</p>
@@ -63,12 +68,22 @@ const toast = () => {
 
   <p>
     Full Example:
-    <a href="https://github.com/element-plus/element-plus-vite-starter" target="_blank">element-plus-vite-starter</a>
+    <a
+      href="https://github.com/element-plus/element-plus-vite-starter"
+      target="_blank"
+      >element-plus-vite-starter</a
+    >
     | On demand Example:
-    <a href="https://github.com/element-plus/unplugin-element-plus"
-      target="_blank">unplugin-element-plus/examples/vite</a>
+    <a
+      href="https://github.com/element-plus/unplugin-element-plus"
+      target="_blank"
+      >unplugin-element-plus/examples/vite</a
+    >
   </p>
-  <button type="button" @click="store.increment">button from HelloWorld.vue: {{ store.count }}</button>
+
+  <button type="button" @click="store.increment">
+    button from HelloWorld.vue: {{ store.count }}
+  </button>
 </template>
 
 <style>
@@ -76,7 +91,7 @@ const toast = () => {
   margin: 4px;
 }
 
-.ep-button+.ep-button {
+.ep-button + .ep-button {
   margin-left: 0;
   margin: 4px;
 }

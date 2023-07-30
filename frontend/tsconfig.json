@@ -2,10 +2,10 @@
   "compilerOptions": {
     "allowJs": true,
     "baseUrl": ".",
-    "target": "esnext",
     "useDefineForClassFields": true,
+    "target": "esnext",
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "Node",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
@@ -14,12 +14,16 @@
     "types": [
       "element-plus/global"
     ],
+    "outDir": "./dist",
     "lib": [
       "esnext",
       "dom"
     ],
     "paths": {
       "~/*": [
+        "src/*"
+      ],
+      "@/*": [
         "src/*"
       ]
     },
@@ -33,5 +37,9 @@
     "src/**/*.d.ts",
     "src/**/*.tsx",
     "src/**/*.vue"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
   ]
 }
