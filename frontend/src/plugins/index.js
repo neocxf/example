@@ -4,17 +4,18 @@ import cache from './cache'
 import modal from './modal'
 import download from './download'
 
-export default {
-  install(Vue) {
+export const plugins = {
+  install(app, options) {
+    // configure the app
     // 页签操作
-    Vue.prototype.$tab = tab
+    app.provide('$tab', tab)
     // 认证对象
-    Vue.prototype.$auth = auth
+    app.provide('$auth', auth)
     // 缓存对象
-    Vue.prototype.$cache = cache
+    app.provide('$cache', cache)
     // 模态框对象
-    Vue.prototype.$modal = modal
+    app.provide('$modal', modal)
     // 下载文件
-    Vue.prototype.$download = download
+    app.provide('$download', download)
   }
 }

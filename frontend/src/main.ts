@@ -14,11 +14,11 @@ const app = createApp(App);
 
 import store from '@/store'
 import router from '@/router'
-import directive from '@/directive' // directive
-import plugins from '@/plugins' // plugins
+import { directives } from '@/directive' // directive
+import { plugins } from '@/plugins' // plugins
 app.use(store)
 app.use(router)
-app.use(directive)
+app.use(directives)
 app.use(plugins)
 
 // 全局方法挂载

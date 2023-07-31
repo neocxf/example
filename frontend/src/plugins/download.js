@@ -5,7 +5,7 @@ import { getToken } from '@/utils/auth'
 import errorCode from '@/utils/errorCode'
 import { blobValidate } from "@/utils/ruoyi";
 
-const baseURL = import.meta.env.VUE_APP_BASE_API
+const baseURL = import.meta.env.APP_BASE_API
 
 export default {
   name(name, isDelete = true) {

@@ -1,19 +1,8 @@
 <template>
   <div class="upload-file">
-    <el-upload
-      multiple
-      :action="uploadFileUrl"
-      :before-upload="handleBeforeUpload"
-      :file-list="fileList"
-      :limit="limit"
-      :on-error="handleUploadError"
-      :on-exceed="handleExceed"
-      :on-success="handleUploadSuccess"
-      :show-file-list="false"
-      :headers="headers"
-      class="upload-file-uploader"
-      ref="fileUpload"
-    >
+    <el-upload multiple :action="uploadFileUrl" :before-upload="handleBeforeUpload" :file-list="fileList" :limit="limit"
+      :on-error="handleUploadError" :on-exceed="handleExceed" :on-success="handleUploadSuccess" :show-file-list="false"
+      :headers="headers" class="upload-file-uploader" ref="fileUpload">
       <!-- 上传按钮 -->
       <el-button size="mini" type="primary">选取文件</el-button>
       <!-- 上传提示 -->
@@ -72,8 +61,8 @@ export default {
     return {
       number: 0,
       uploadList: [],
-      baseUrl: import.meta.env.VUE_APP_BASE_API,
-      uploadFileUrl: import.meta.env.VUE_APP_BASE_API + "/common/upload", // 上传文件服务器地址
+      baseUrl: import.meta.env.APP_BASE_API,
+      uploadFileUrl: import.meta.env.APP_BASE_API + "/common/upload", // 上传文件服务器地址
       headers: {
         Authorization: "Bearer " + getToken(),
       },
@@ -197,18 +186,21 @@ export default {
 .upload-file-uploader {
   margin-bottom: 5px;
 }
+
 .upload-file-list .el-upload-list__item {
   border: 1px solid #e4e7ed;
   line-height: 2;
   margin-bottom: 10px;
   position: relative;
 }
+
 .upload-file-list .ele-upload-list__item-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   color: inherit;
 }
+
 .ele-upload-list__item-content-action .el-link {
   margin-right: 10px;
 }

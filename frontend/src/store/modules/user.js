@@ -1,4 +1,5 @@
-import { login, logout, getInfo } from '@/api/login'
+import { login, logout, getInfo } from '@api-client/login'
+
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
@@ -51,14 +52,14 @@ const user = {
       return new Promise((resolve, reject) => {
         getInfo().then(res => {
           const user = res.user
-          const avatar = (user.avatar == "" || user.avatar == null) ? require("@/assets/images/profile.jpg") : import.meta.env.VUE_APP_BASE_API + user.avatar;
+          const avatar = (user.avatar == "" || user.avatar == null) ? require("@/assets/images/profile.jpg") : import.meta.env.APP_BASE_API + user.avatar;
           if (res.roles && res.roles.length > 0) { // 验证返回的roles是否是一个非空数组
             commit('SET_ROLES', res.roles)
             commit('SET_PERMISSIONS', res.permissions)
           } else {
             commit('SET_ROLES', ['ROLE_DEFAULT'])
           }
-          commit('SET_NAME', user.userName)
+          commit('SET_NAME', user.username)
           commit('SET_AVATAR', avatar)
           resolve(res)
         }).catch(error => {

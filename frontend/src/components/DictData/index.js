@@ -42,6 +42,12 @@ export const install = () => {
   }
 }
 
+// export const dictData = {
+//   install(app, options) {
+//     app.plugin
+//   }
+// }
+
 
 
 export default {

@@ -8,7 +8,7 @@ export default {
   components: { iFrame },
   data() {
     return {
-      url: import.meta.env.VUE_APP_BASE_API + "/druid/login.html"
+      url: import.meta.env.APP_BASE_API + "/druid/login.html"
     };
   },
 };

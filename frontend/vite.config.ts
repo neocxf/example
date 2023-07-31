@@ -1,5 +1,5 @@
 import path from 'path'
-import { defineConfig } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
@@ -18,54 +18,65 @@ import {
 const pathSrc = path.resolve(__dirname, './src')
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  resolve: {
-    extensions: [
-      ".ts", ".js", ".vue"
-    ],
-    alias: {
-      '@/': `${pathSrc}/`,
-      '~/': path.resolve(__dirname, 'src'),
+export default defineConfig(({ command, mode }) => {
+  // Load env file based on `mode` in the current working directory.
+  // Set the third parameter to '' to load all env regardless of the `VITE_` prefix.
+  const env = loadEnv(mode, process.cwd(), '')
+  return {
+    // vite config
+    define: {
+      __APP_ENV__: JSON.stringify(env.APP_ENV),
     },
-  },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/styles/element/index.scss" as *;`,
+
+    resolve: {
+      extensions: [
+        ".ts", ".js", ".vue"
+      ],
+      alias: {
+        '@/': `${pathSrc}/`,
+        '~/': path.resolve(__dirname, 'src'),
+        '@api-client': path.resolve(__dirname, 'src/api-mock'),
       },
     },
-  },
-  plugins: [
-    vue(),
-    vueJsx(),
-    Components({
-      // allow auto load markdown components under `./src/components/`
-      extensions: ['vue', 'md'],
-      // allow auto import and register components used in markdown
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      resolvers: [
-        ElementPlusResolver({
-          importStyle: 'sass',
-        }),
-      ],
-      dts: 'src/components.d.ts',
-    }),
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@use "@/styles/element/index.scss" as *;`,
+        },
+      },
+    },
+    plugins: [
+      vue(),
+      vueJsx(),
+      Components({
+        // allow auto load markdown components under `./src/components/`
+        extensions: ['vue', 'md'],
+        // allow auto import and register components used in markdown
+        include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
+        resolvers: [
+          ElementPlusResolver({
+            importStyle: 'sass',
+          }),
+        ],
+        dts: 'src/components.d.ts',
+      }),
 
-    // https://github.com/antfu/unocss
-    // see unocss.config.ts for config
-    Unocss({
-      presets: [
-        presetUno(),
-        presetAttributify(),
-        presetIcons({
-          scale: 1.2,
-          warn: true,
-        }),
-      ],
-      transformers: [
-        transformerDirectives(),
-        transformerVariantGroup(),
-      ]
-    }),
-  ],
+      // https://github.com/antfu/unocss
+      // see unocss.config.ts for config
+      Unocss({
+        presets: [
+          presetUno(),
+          presetAttributify(),
+          presetIcons({
+            scale: 1.2,
+            warn: true,
+          }),
+        ],
+        transformers: [
+          transformerDirectives(),
+          transformerVariantGroup(),
+        ]
+      }),
+    ],
+  }
 })

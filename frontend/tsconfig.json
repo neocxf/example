@@ -25,6 +25,9 @@
       ],
       "@/*": [
         "src/*"
+      ],
+      "@api-client/*": [
+        "src/api/*"
       ]
     },
     "skipLibCheck": true
